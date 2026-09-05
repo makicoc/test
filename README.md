@@ -15,6 +15,12 @@ Google Sheetsの公開CSVを読み込み、VRChat向けの `board.json` とし�
 
 `max_items` は0なら制限なしです。件数や本文が多いほど、VRChat内での読み込み・表示が重くなります。
 
+## 通信エラー時の動作
+
+Google Sheetsの取得は1回30秒でタイムアウトし、最大3回まで自動再試行します。それでも一時的に取得できない場合は、直前に成功した `board.json` を維持して、GitHub Pagesを空の状態で上書きしません。
+
+`.github/workflows/keepalive.yml` が月1回活動記録を更新し、定期実行の停止を防ぎます。Actionsの書き込み権限が必要です。
+
 ## CSVの列
 
 - `title`: お知らせタイトル
